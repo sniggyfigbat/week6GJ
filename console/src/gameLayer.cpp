@@ -8,6 +8,9 @@ GameLayer::GameLayer()
 	m_renderer.setClearChar(' ');
 	m_camera = Camera(0,0,120,30);
 
+	m_labels.resize(2);
+	m_labels[0] = Label(glm::vec2(10.f, 5.f), glm::vec2(0.833f, 1.0f), 15, "XXXXXXX0XXXXXXXX");
+	m_labels[1] = Label(glm::vec2(3.3f, 1.65f),  glm::vec2(0.5f, 1.0f), 15, "___===---");
 }
 
 void GameLayer::onUpdate(float timestep)
@@ -15,10 +18,10 @@ void GameLayer::onUpdate(float timestep)
 	// Render everything
 	m_renderer.beginScene(m_camera);
 
-	/*for (auto renderComp : m_renderComponents)
+	for (auto label : m_labels)
 	{
-		m_renderer.submit(renderComp.getMaterial());
-	}*/
+		m_renderer.submit(label.getMaterial());
+	}
 
 	m_renderer.endScene();
 	m_renderer.flush();

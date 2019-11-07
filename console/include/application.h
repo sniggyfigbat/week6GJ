@@ -13,6 +13,7 @@
 #include "layer.h"
 #include "gameLayer.h"
 
+
 class Application
 {
 private:
@@ -28,6 +29,8 @@ private:
 	bool m_running = true;
 
 	std::shared_ptr<Layer> m_gameLayer;
+
+
 public:
 	void init();
 	void run();

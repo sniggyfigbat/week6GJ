@@ -6,7 +6,7 @@
 #include <vector>
 #include "layer.h"
 #include "consoleRenderer.h"
-#include "gameObject.h"
+#include "label.h"
 #include "camera.h"
 
 class GameLayer : public Layer
@@ -15,7 +15,7 @@ private:
 	b2World* world;
 	ConsoleRenderer m_renderer;
 	Camera m_camera;
-	std::vector<GameObject> m_gameObjects;
+	std::vector<Label> m_labels;
 	int m_lastKeypress;
 public:
 	GameLayer();
