@@ -29,10 +29,12 @@ void Drawable::onDelete()
 {
 }
 
-void Drawable::addFrame(char * texture)
+void Drawable::addFrame(char * texture, unsigned int count)
 {
-	m_Textures.push_back(texture);
-	m_numFrames++;
+	for (unsigned int i = 0; i < count; i++) {
+		m_Textures.push_back(texture);
+		m_numFrames++;
+	}
 }
 
 void Drawable::addFrame(char * texture, const std::map<unsigned int, char>& specialChars)

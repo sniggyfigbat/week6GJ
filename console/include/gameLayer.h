@@ -24,6 +24,7 @@ private:
 	Drawable m_animation;
 	Drawable m_SmallBomb;
 	Drawable m_LargeBomb;
+	Drawable m_sBombUI, m_lBombUI, m_rocketUI;
 
 
 	Collidable m_staticBox;

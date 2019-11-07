@@ -21,7 +21,7 @@ public:
 	void onKeyPress(int keyPress);
 	void onUpdate(float timestep);
 	void onDelete();
-	void addFrame(char* texture);
+	void addFrame(char* texture, unsigned int count = 1);
 	void addFrame(char* texture, const std::map<unsigned int, char>& specialChars);
 	inline ConsoleMaterial getMaterial() { return  m_animatedMat; }
 
