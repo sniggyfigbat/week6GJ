@@ -26,6 +26,8 @@ GameLayer::GameLayer()
 	m_animation.addFrame("XXXXXXXXXX0XXXXX");
 	m_animation.addFrame("XXXXXXXXXXX0XXXX");
 	m_animation.addFrame("XXXXXXXXXXXX0XXX");
+
+	m_staticBox.createStatic(glm::vec2(10.f, 7.5f), glm::vec2(5.f * 0.833f, 5.0f), 15, "XXXXXXXXXXXXXXXXXXXXXXXXX");
 }
 
 void GameLayer::onUpdate(float timestep)

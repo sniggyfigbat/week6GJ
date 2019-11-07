@@ -9,6 +9,7 @@
 #include "label.h"
 #include "camera.h"
 #include "drawable.h"
+#include "collidable.h"
 
 class GameLayer : public Layer
 {
@@ -20,6 +21,9 @@ private:
 	int m_lastKeypress;
 
 	Drawable m_animation;
+
+	Collidable m_staticBox;
+	Collidable m_dynamicBox;
 public:
 	GameLayer();
 	void onUpdate(float timestep) override;

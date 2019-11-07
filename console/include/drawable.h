@@ -6,7 +6,7 @@
 
 class Drawable : public GameObject
 {
-private:
+protected:
 
 	
 	ConsoleMaterial m_animatedMat;
