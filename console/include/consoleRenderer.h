@@ -4,8 +4,8 @@
 #include <string>
 #include <glm/glm.hpp>
 
-#include "components/renderComponent.h"
 #include "camera.h"
+#include "consoleMaterial.h"
 
 class ConsoleRenderer
 {
