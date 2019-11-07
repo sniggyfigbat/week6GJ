@@ -23,9 +23,18 @@ GameLayer::GameLayer()
 
 	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
 	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
-	//m_animation.addFrame("XXXXXXXXXX0XXXXX");
-	//m_animation.addFrame("XXXXXXXXXXX0XXXX");
-	//m_animation.addFrame("XXXXXXXXXXXX0XXX");
+	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
+	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
+	m_animation.addFrame("        ''  o_()_o  /L   d  b ");
+	m_animation.addFrame("        ''  o_()_o  /L   d  b ");
+	m_animation.addFrame("        ''  o_()_o  /L   d  b ");
+	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
+	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
+	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
+	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
+	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
+
+
 }
 
 void GameLayer::onUpdate(float timestep)
