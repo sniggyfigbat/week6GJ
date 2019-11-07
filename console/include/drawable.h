@@ -18,8 +18,8 @@ public:
 	Drawable() {};
 	Drawable(glm::vec2 position, glm::vec2 size, int count, char* texture);
 
-	void onKeyPress(int keyPress);
-	void onUpdate(float timestep);
+	virtual void onKeyPress(int keyPress);
+	virtual void onUpdate(float timestep);
 	void onDelete();
 	void addFrame(char* texture, unsigned int count = 1);
 	void addFrame(char* texture, const std::map<unsigned int, char>& specialChars);
