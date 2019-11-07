@@ -11,6 +11,7 @@
 #include "drawable.h"
 #include "collidable.h"
 #include "terrain.h"
+#include "player.h"
 
 class GameLayer : public Layer
 {
@@ -25,11 +26,12 @@ private:
 	Drawable m_SmallBomb;
 	Drawable m_LargeBomb;
 
-
 	Collidable m_staticBox;
 	Collidable m_dynamicBox;
-
+	
 	Terrain * m_terrain;
+
+	Player m_player;
 public:
 	GameLayer();
 	void onUpdate(float timestep) override;

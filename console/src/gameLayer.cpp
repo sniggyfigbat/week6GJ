@@ -21,6 +21,8 @@ GameLayer::GameLayer()
 	m_labels[1] = Label(glm::vec2(3.3f, 1.65f),  GameObject::invView(3,3), 15, "___===---");
 
 	m_animation = Drawable(glm::vec2(10.f, 5.f), GameObject::invView(6,5), 30, "        ''  o_()_o  /\\   d  b ");
+	m_player.createDynamic(m_world, glm::vec2(6.f, 1.f), GameObject::invView(6, 5), 6 * 5, "        ''  o_()_o  /\\   d  b ");
+
 	m_SmallBomb = Drawable(glm::vec2(2.f, 3.f), GameObject::invView(24, 12), 288, "                                                                                 *   *                 *  * *  *            *    **#**    *           *   * *   *            *   *   *   *              *     *                                                                                 ");
 	m_LargeBomb = Drawable(glm::vec2(6.f, 0.5f), GameObject::invView(48, 24), 1152, "");
 
@@ -39,6 +41,19 @@ GameLayer::GameLayer()
 	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
 	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
 	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+
+	m_player.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
 
 	// Small Bomb animation //
 	m_SmallBomb.addFrame("                                                                                 *   *                 *  * *  *            *    **#**    *           *   * *   *            *   *   *   *              *     *                                                                                 ");
@@ -87,22 +102,26 @@ void GameLayer::onUpdate(float timestep)
 	//m_SmallBomb.onUpdate(timestep);
 	m_LargeBomb.onUpdate(timestep);
 
-
+	m_player.onUpdate(timestep);
 	// Render everything
 	m_renderer.beginScene(m_camera);
 
-	m_renderer.submit(m_terrain->getMaterial());
-	m_renderer.submit(m_staticBox.getMaterial());
-	m_renderer.submit(m_dynamicBox.getMaterial());
+
 
 	for (auto label : m_labels)
 	{
 		m_renderer.submit(label.getMaterial());
 	}
 
-	m_renderer.submit(m_animation.getMaterial());
-	//m_renderer.submit(m_SmallBomb.getMaterial());
+
+	m_renderer.submit(m_SmallBomb.getMaterial());
 	m_renderer.submit(m_LargeBomb.getMaterial());
+	m_renderer.submit(m_terrain->getMaterial());
+	m_renderer.submit(m_staticBox.getMaterial());
+	m_renderer.submit(m_dynamicBox.getMaterial());
+	m_renderer.submit(m_animation.getMaterial());
+
+	m_renderer.submit(m_player.getMaterial());
 
 	m_renderer.endScene();
 	m_renderer.flush();
@@ -110,5 +129,6 @@ void GameLayer::onUpdate(float timestep)
 
 bool GameLayer::onKeyPress(unsigned int keyCode)
 {
+	m_player.onKeyPress(keyCode);
 	return false;
 }
