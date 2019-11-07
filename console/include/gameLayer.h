@@ -14,18 +14,13 @@
 class GameLayer : public Layer
 {
 private:
-	//b2World* world= new b2World();
+	b2World* world;
 	ConsoleRenderer m_renderer;
 	Camera m_camera;
 	std::vector<GameObject> m_gameObjects;
 	std::vector<RenderComponent> m_renderComponents;
 	int m_lastKeypress;
 	KeyboardCtrlComponent m_KBCtrlComponent;
-	/*std::shared_ptr<RenderComponent> m_rc1;
-	std::shared_ptr<RenderComponent> m_rc2;
-	std::shared_ptr<RenderComponent> m_rc3;
-	std::shared_ptr<RenderComponent> m_rc4;
-	std::shared_ptr<RenderComponent> m_rc5;*/
 public:
 	GameLayer();
 	void onUpdate(float timestep) override;

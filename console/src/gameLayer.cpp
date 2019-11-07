@@ -3,6 +3,8 @@
 
 GameLayer::GameLayer()
 {
+	world = new b2World(b2Vec2(0.f, -9.81f));
+
 	m_renderer.setClearChar(' ');
 	m_camera = Camera(0,0,120,30);
 
