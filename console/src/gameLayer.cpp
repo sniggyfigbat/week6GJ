@@ -1,4 +1,4 @@
-#include "gameLayer.h"
+﻿#include "gameLayer.h"
 
 b2World* GameLayer::m_world = new b2World(b2Vec2(0.f, -9.81f));
 
@@ -16,18 +16,16 @@ GameLayer::GameLayer()
 		
 
 
-	m_labels[0] = Label(glm::vec2(10.f, 5.f), glm::vec2(0.833f, 1.0f), 15, ch);
-	m_labels[1] = Label(glm::vec2(3.3f, 1.65f),  glm::vec2(0.5f, 1.0f), 15, "___===---");
+	m_labels[0] = Label(glm::vec2(10.f, 5.f), GameObject::invView(5, 3), 15, ch);
+	m_labels[1] = Label(glm::vec2(3.3f, 1.65f),  GameObject::invView(3,3), 15, "___===---");
 
-	m_animation = Drawable(glm::vec2(10.f, 5.f), glm::vec2(0.833f, 1.0f), 15, "XXXXXXX0XXXXXXXX");
+	m_animation = Drawable(glm::vec2(10.f, 5.f), GameObject::invView(6,5), 30, "        ''  o_()_o  /\\   d  b ");
 
-	m_animation.addFrame("XXXXXXXX0XXXXXXX");
-	m_animation.addFrame("XXXXXXXXX0XXXXXX");
-	m_animation.addFrame("XXXXXXXXXX0XXXXX");
-	m_animation.addFrame("XXXXXXXXXXX0XXXX");
-	m_animation.addFrame("XXXXXXXXXXXX0XXX");
-
-	m_staticBox.createStatic(glm::vec2(10.f, 7.5f), glm::vec2(5.f * 0.833f, 5.0f), 15, "XXXXXXXXXXXXXXXXXXXXXXXXX");
+	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
+	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
+	//m_animation.addFrame("XXXXXXXXXX0XXXXX");
+	//m_animation.addFrame("XXXXXXXXXXX0XXXX");
+	//m_animation.addFrame("XXXXXXXXXXXX0XXX");
 }
 
 void GameLayer::onUpdate(float timestep)
