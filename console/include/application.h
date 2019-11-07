@@ -21,7 +21,7 @@ private:
 	std::list<unsigned int> m_keyBuffer;
 	std::mutex keyBufferMutex;
 	static float s_frameTime;
-	const float m_frameTime = 1.f / 60.f;
+	const float m_frameTime = 1.f / 24.f;
 	
 	std::chrono::high_resolution_clock::time_point m_frameStart;
 	std::chrono::high_resolution_clock::time_point m_frameEnd;
