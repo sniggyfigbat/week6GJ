@@ -25,23 +25,23 @@ GameLayer::GameLayer()
 	std::map<unsigned int, char> specialChars;
 	specialChars[2] = char(201);
 	specialChars[3] = char(187);
-	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ",specialChars);
-	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
-	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
-	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
-	m_animation.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
-	m_animation.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
-	m_animation.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
-	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
-	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
-	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
-	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
-	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame(" _XX_   ''  o_()_o  /\\   d  b ",specialChars);
+	m_animation.addFrame(" _XX_   ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame(" _XX_   ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame(" _XX_   ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame(" _XX_   ''  o_()_o  /L   d  b ", specialChars);
+	m_animation.addFrame(" _XX_   ''  o_()_o  /L   d  b ", specialChars);
+	m_animation.addFrame(" _XX_   ''  o_()_o  /L   d  b ", specialChars);
+	m_animation.addFrame(" _XX_ o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame(" _XX_ o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame(" _XX_ o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame(" _XX_ o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame(" _XX_ o ''   \\()_o  /l   d b  ", specialChars);
 
 	m_staticBox.createStatic(m_world, glm::vec2(5.f, 7.f), GameObject::invView(24, 2), 24 * 2, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	m_dynamicBox.createDynamic(m_world, glm::vec2(5.f, 1.f), GameObject::invView(2, 2), 2 * 2, "0000");
 
-	m_terrain = new Terrain();
+	m_terrain = new Terrain(m_world);
 	}
 
 void GameLayer::onUpdate(float timestep)

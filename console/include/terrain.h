@@ -1,6 +1,8 @@
 ﻿#pragma once
 
 #include <array>
+#include <queue>
+#include <Box2D/Box2D.h>
 
 #include "consoleMaterial.h"
 #include "gameObject.h"
@@ -72,9 +74,13 @@ private:
 
 	std::array<std::array<usint, WORLD_Y_CHARS>, WORLD_X_CHARS> m_world;
 
-	// Box2d object
+	void updateLine(glm::vec2 startPoint);
+
+	// Box2D
+	b2World * m_b2world;
+	b2Body * m_body;
 public:
-	Terrain();
+	Terrain(b2World * world);
 	~Terrain();
 
 	void generateTerrain();

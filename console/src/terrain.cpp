@@ -1,6 +1,71 @@
 ﻿#include "terrain.h"
 
-Terrain::Terrain()
+enum Diag {
+	TL,
+	TR,
+	BR,
+	BL
+};
+
+b2Vec2 adjust(const b2Vec2 & in, Diag dir) {
+	b2Vec2 adj = b2Vec2(1.0f / 12.0f, 1.0f / 6.0f);
+	adj.x = (dir == Diag::TL || dir == Diag::BL) ? -1.0f / 12.0f : 1.0f / 12.0f;
+	adj.y = (dir == Diag::TL || dir == Diag::TR) ? -1.0f / 6.0f : 1.0f / 6.0f;
+	return b2Vec2(adj);
+}
+
+void Terrain::updateLine(glm::vec2 startPoint)
+{
+	bool done = false;
+	std::queue<b2Vec2> points;
+
+	enum Paths {
+		OnTop,
+		SlopeBL,
+		OnRight,
+		SlopeTL,
+		OnBottom,
+		SlopeTR,
+		OnLeft,
+		SlopeBR
+	};
+
+	glm::ivec2 focus;
+	Paths direction;
+
+	bool found = false;
+	for (uint y = 0; found == false && y < WORLD_Y_CHARS; y++) {
+		usint typeOf = (m_world[0][y] & Function::AllFunction);
+		if (typeOf != Function::Empty && typeOf != Function::LeftSpike && typeOf != Function::DownSpike) {
+			focus.x = 0;
+			focus.y = y;
+
+			if (typeOf == Function::UpSpike || typeOf == Function::SlopeBR) {
+				found = true;
+				points.push(adjust(b2Vec2(0.0f, (y / 3.0f)), Diag::BL));
+				direction = Paths::SlopeBR;
+			}
+			else if (typeOf == Function::RightSpike || typeOf == Function::SlopeBL) {
+				found = true;
+				points.push(adjust(b2Vec2(0.0f, (y / 3.0f)), Diag::TL));
+				direction = Paths::SlopeBL;
+			}
+			else if (typeOf == Function::Full) {
+				found = true;
+				points.push(adjust(b2Vec2(0.0f, (y / 3.0f)), Diag::TL));
+				direction = Paths::OnTop;
+			}
+		}
+	}
+
+	found = false;
+	while (!found) {
+				
+		//switch () {};
+	}
+}
+
+Terrain::Terrain(b2World * world) : m_b2world(world)
 {
 	m_material.setSize(glm::ivec2(WORLD_X_CHARS, WORLD_Y_CHARS));
 	m_material.setCount(WORLD_X_CHARS * WORLD_Y_CHARS);
@@ -8,6 +73,26 @@ Terrain::Terrain()
 
 	char d[WORLD_X_CHARS * WORLD_Y_CHARS] = {0};
 	m_material.setData(&d[0]);
+
+	// Line setup
+	b2BodyDef bodDef;
+	bodDef.type = b2_staticBody;
+	bodDef.position.SetZero();
+	m_body = m_b2world->CreateBody(&bodDef);
+
+	b2ChainShape edge;
+	b2Vec2 vs[4];
+	vs[0].Set(0.0f, 15.0f);
+	vs[1].Set(10.0f, 25.0f);
+	vs[2].Set(50.0f, 5.0f);
+	vs[3].Set(60.0f, 15.0f);
+	edge.CreateChain(vs, 4);
+	
+	b2FixtureDef fixDef;
+	fixDef.friction = 0.2f;
+	fixDef.restitution = 0.5f;
+	fixDef.shape = &edge;
+	m_body->CreateFixture(&fixDef);
 
 	generateTerrain();
 	updateMaterial();
