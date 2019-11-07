@@ -1,15 +1,22 @@
 #include "gameLayer.h"
 
+b2World* GameLayer::m_world = new b2World(b2Vec2(0.f, -9.81f));
 
 GameLayer::GameLayer()
 {
-	world = new b2World(b2Vec2(0.f, -9.81f));
-
 	m_renderer.setClearChar(' ');
 	m_camera = Camera(0,0,120,30);
 
 	m_labels.resize(2);
-	m_labels[0] = Label(glm::vec2(10.f, 5.f), glm::vec2(0.833f, 1.0f), 15, "XXXXXXX0XXXXXXXX");
+
+	char ch[15] = {
+		'X','X','X','X','X',
+		'X','X',char(206),'X','X',
+		'X','X','X','X','X' };
+		
+
+
+	m_labels[0] = Label(glm::vec2(10.f, 5.f), glm::vec2(0.833f, 1.0f), 15, ch);
 	m_labels[1] = Label(glm::vec2(3.3f, 1.65f),  glm::vec2(0.5f, 1.0f), 15, "___===---");
 }
 
