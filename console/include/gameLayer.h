@@ -31,6 +31,9 @@ private:
 	Collidable m_dynamicBox;
 
 	Terrain * m_terrain;
+
+	Player m_player;
+
 public:
 	GameLayer();
 	void onUpdate(float timestep) override;

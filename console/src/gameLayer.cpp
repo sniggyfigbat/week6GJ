@@ -28,6 +28,8 @@ GameLayer::GameLayer()
 	m_lBombUI = Drawable(glm::vec2(2.f, 0.5f), GameObject::invView(7, 2), 14, "  -,    ( X ) ");
 	//m_rocketUI = Drawable(glm::vec2(6.f, 0.5f), GameObject::invView(48, 24), 1152, "");
 
+	m_player.createDynamic(m_world, glm::vec2(6.f, 1.f), GameObject::invView(6, 5), 6 * 5, "        ''  o_()_o  /\\   d  b ");
+
 
 	std::map<unsigned int, char> specialChars;
 	specialChars[2] = char(201);
@@ -44,6 +46,20 @@ GameLayer::GameLayer()
 	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
 	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
 	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+
+	m_player.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+
 
 	// Small Bomb animation //
 	m_SmallBomb.addFrame("                                                                                 *   *                 *  * *  *            *    **#**    *           *   * *   *            *   *   *   *              *     *                                                                                 ",3);
@@ -82,6 +98,7 @@ void GameLayer::onUpdate(float timestep)
 	m_SmallBomb.onUpdate(timestep);
 	m_LargeBomb.onUpdate(timestep);
 
+	m_player.onUpdate(timestep);
 
 	// Render everything
 	m_renderer.beginScene(m_camera);
@@ -102,11 +119,14 @@ void GameLayer::onUpdate(float timestep)
 	m_renderer.submit(m_lBombUI.getMaterial());
 	//m_renderer.submit(m_rocketUI.getMaterial());
 
+	m_renderer.submit(m_player.getMaterial());
+
 	m_renderer.endScene();
 	m_renderer.flush();
 }
 
 bool GameLayer::onKeyPress(unsigned int keyCode)
 {
+	m_player.onKeyPress(keyCode);
 	return false;
 }
