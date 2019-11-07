@@ -3,6 +3,8 @@
 
 GameLayer::GameLayer()
 {
+	m_world = new b2World(b2Vec2(0.f, 9.81f));
+
 	m_renderer.setClearChar(' ');
 	m_camera = Camera(0,0,120,30);
 
@@ -33,16 +35,23 @@ GameLayer::GameLayer()
 	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
 	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
 
+	m_staticBox.createStatic(m_world, glm::vec2(5.f, 7.f), GameObject::invView(24, 2), 24 * 2, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+	m_dynamicBox.createDynamic(m_world, glm::vec2(5.f, 1.f), GameObject::invView(2, 2), 2 * 2, "0000");
 
+	//m_staticBox.createStatic(m_world,glm::vec2(10.f, 0.25f), GameObject::invView(60, 4), 60 * 4, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 }
 
 void GameLayer::onUpdate(float timestep)
 {
 	//Update everything
+	m_world->Step(timestep, 7, 5);
 
-	m_animation.onUpdate(timestep);
+	m_dynamicBox.onUpdate(timestep);
 	// Render everything
 	m_renderer.beginScene(m_camera);
+
+	m_renderer.submit(m_staticBox.getMaterial());
+	m_renderer.submit(m_dynamicBox.getMaterial());
 
 	for (auto label : m_labels)
 	{
