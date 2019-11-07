@@ -22,8 +22,6 @@ void Collidable::createDynamic(b2World* w, glm::vec2 position, glm::vec2 size, i
 	boxFixtureDef.density = 1;
 	boxFixtureDef.restitution = 0.6f;
 	m_body->CreateFixture(&boxFixtureDef);
-
-
 }
 
 void Collidable::onUpdate(float timestep)

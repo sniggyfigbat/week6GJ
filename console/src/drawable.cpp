@@ -34,3 +34,17 @@ void Drawable::addFrame(char * texture)
 	m_Textures.push_back(texture);
 	m_numFrames++;
 }
+
+void Drawable::addFrame(char * texture, const std::map<unsigned int, char>& specialChars)
+{
+	int len = strlen(texture);
+	char * walker = (char *)malloc(sizeof(char) * len);
+
+	memcpy(walker, texture, len);
+	for (auto it = specialChars.begin(); it != specialChars.end(); ++it)
+	{
+		walker[it->first] = it->second;
+	}
+	m_Textures.push_back(walker);
+	m_numFrames++;
+}

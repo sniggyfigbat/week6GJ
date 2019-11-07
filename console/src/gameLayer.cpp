@@ -20,26 +20,28 @@ GameLayer::GameLayer()
 	m_labels[0] = Label(glm::vec2(10.f, 5.f), GameObject::invView(5, 3), 15, ch);
 	m_labels[1] = Label(glm::vec2(3.3f, 1.65f),  GameObject::invView(3,3), 15, "___===---");
 
-	m_animation = Drawable(glm::vec2(10.f, 5.f), GameObject::invView(6,5), 30, "        ''  o_()_o  /\\   d  b ");
+	m_animation = Drawable(glm::vec2(10.f, 5.f), GameObject::invView(6,5), 30, "        XX  o_()_o  /\\   d  b ");
 
-	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
-	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
-	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
-	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
-	m_animation.addFrame("        ''  o_()_o  /L   d  b ");
-	m_animation.addFrame("        ''  o_()_o  /L   d  b ");
-	m_animation.addFrame("        ''  o_()_o  /L   d  b ");
-	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
-	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
-	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
-	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
-	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
+	std::map<unsigned int, char> specialChars;
+	specialChars[2] = char(201);
+	specialChars[3] = char(187);
+	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ",specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
 
 	m_staticBox.createStatic(m_world, glm::vec2(5.f, 7.f), GameObject::invView(24, 2), 24 * 2, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	m_dynamicBox.createDynamic(m_world, glm::vec2(5.f, 1.f), GameObject::invView(2, 2), 2 * 2, "0000");
 
-	//m_staticBox.createStatic(m_world,glm::vec2(10.f, 0.25f), GameObject::invView(60, 4), 60 * 4, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-}
+	}
 
 void GameLayer::onUpdate(float timestep)
 {
@@ -47,6 +49,7 @@ void GameLayer::onUpdate(float timestep)
 	m_world->Step(timestep, 7, 5);
 
 	m_dynamicBox.onUpdate(timestep);
+	m_animation.onUpdate(timestep);
 	// Render everything
 	m_renderer.beginScene(m_camera);
 

@@ -8,7 +8,6 @@ void ConsoleRenderer::beginScene(const Camera& camera)
 	// Clear frame buffer
 	memset(m_frameBuffer, m_clearChar, m_frameBufferSize - 1);
 }
-
 void ConsoleRenderer::submit(const ConsoleMaterial & mat)
 {
 	int srcLeftIdx, srcRightIdx;
