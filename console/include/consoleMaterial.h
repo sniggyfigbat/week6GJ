@@ -17,6 +17,9 @@ public:
 		m_data = (char *)malloc(m_count);
 		memcpy(m_data, d, m_count);
 	}
+	void setTexture(char * d){ 
+		memcpy(m_data, d, m_count);
+	}
 	void setCount(int count) { m_count = count; }
 	void setPosition(glm::ivec2 pos) { m_position = pos; }
 	void setSize(glm::ivec2 size) { m_size = size; }

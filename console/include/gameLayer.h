@@ -8,6 +8,7 @@
 #include "consoleRenderer.h"
 #include "label.h"
 #include "camera.h"
+#include "drawable.h"
 
 class GameLayer : public Layer
 {
@@ -17,6 +18,8 @@ private:
 	Camera m_camera;
 	std::vector<Label> m_labels;
 	int m_lastKeypress;
+
+	Drawable m_animation;
 public:
 	GameLayer();
 	void onUpdate(float timestep) override;
