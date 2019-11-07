@@ -28,6 +28,8 @@ private:
 
 	Collidable m_staticBox;
 	Collidable m_dynamicBox;
+
+	Terrain * m_terrain;
 public:
 	GameLayer();
 	void onUpdate(float timestep) override;

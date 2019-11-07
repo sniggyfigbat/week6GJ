@@ -3,6 +3,8 @@
 
 GameLayer::GameLayer()
 {
+	m_world = new b2World(b2Vec2(0.f, 9.81f));
+
 	m_renderer.setClearChar(' ');
 	m_camera = Camera(0,0,120,30);
 
@@ -84,6 +86,8 @@ void GameLayer::onUpdate(float timestep)
 	m_animation.onUpdate(timestep);
 	//m_SmallBomb.onUpdate(timestep);
 	m_LargeBomb.onUpdate(timestep);
+
+
 	// Render everything
 	m_renderer.beginScene(m_camera);
 
