@@ -1,9 +1,10 @@
-#include "gameLayer.h"
+﻿#include "gameLayer.h"
 
-b2World* GameLayer::m_world = new b2World(b2Vec2(0.f, -9.81f));
 
 GameLayer::GameLayer()
 {
+	m_world = new b2World(b2Vec2(0.f, 9.81f));
+
 	m_renderer.setClearChar(' ');
 	m_camera = Camera(0,0,120,30);
 
@@ -16,34 +17,47 @@ GameLayer::GameLayer()
 		
 
 
-	m_labels[0] = Label(glm::vec2(10.f, 5.f), glm::vec2(0.833f, 1.0f), 15, ch);
-	m_labels[1] = Label(glm::vec2(3.3f, 1.65f),  glm::vec2(0.5f, 1.0f), 15, "___===---");
+	m_labels[0] = Label(glm::vec2(10.f, 5.f), GameObject::invView(5, 3), 15, ch);
+	m_labels[1] = Label(glm::vec2(3.3f, 1.65f),  GameObject::invView(3,3), 15, "___===---");
 
-	m_animation = Drawable(glm::vec2(10.f, 5.f), glm::vec2(0.833f, 1.0f), 15, "XXXXXXX0XXXXXXXX");
+	m_animation = Drawable(glm::vec2(10.f, 5.f), GameObject::invView(6,5), 30, "        ''  o_()_o  /\\   d  b ");
 
-	m_animation.addFrame("XXXXXXXX0XXXXXXX");
-	m_animation.addFrame("XXXXXXXXX0XXXXXX");
-	m_animation.addFrame("XXXXXXXXXX0XXXXX");
-	m_animation.addFrame("XXXXXXXXXXX0XXXX");
-	m_animation.addFrame("XXXXXXXXXXXX0XXX");
+	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
+	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
+	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
+	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
+	m_animation.addFrame("        ''  o_()_o  /L   d  b ");
+	m_animation.addFrame("        ''  o_()_o  /L   d  b ");
+	m_animation.addFrame("        ''  o_()_o  /L   d  b ");
+	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
+	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
+	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
+	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
+	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
 
-	m_terrain = new Terrain();
+	m_staticBox.createStatic(m_world, glm::vec2(5.f, 7.f), GameObject::invView(24, 2), 24 * 2, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+	m_dynamicBox.createDynamic(m_world, glm::vec2(5.f, 1.f), GameObject::invView(2, 2), 2 * 2, "0000");
+
+	//m_staticBox.createStatic(m_world,glm::vec2(10.f, 0.25f), GameObject::invView(60, 4), 60 * 4, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 }
 
 void GameLayer::onUpdate(float timestep)
 {
 	//Update everything
+	m_world->Step(timestep, 7, 5);
 
-	m_animation.onUpdate(timestep);
+	m_dynamicBox.onUpdate(timestep);
 	// Render everything
 	m_renderer.beginScene(m_camera);
+
+	m_renderer.submit(m_staticBox.getMaterial());
+	m_renderer.submit(m_dynamicBox.getMaterial());
 
 	for (auto label : m_labels)
 	{
 		m_renderer.submit(label.getMaterial());
 	}
 
-	m_renderer.submit(m_terrain->getMaterial());
 	m_renderer.submit(m_animation.getMaterial());
 
 	m_renderer.endScene();
