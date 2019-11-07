@@ -26,6 +26,8 @@ GameLayer::GameLayer()
 	m_animation.addFrame("XXXXXXXXXX0XXXXX");
 	m_animation.addFrame("XXXXXXXXXXX0XXXX");
 	m_animation.addFrame("XXXXXXXXXXXX0XXX");
+
+	m_terrain = new Terrain();
 }
 
 void GameLayer::onUpdate(float timestep)
@@ -41,6 +43,7 @@ void GameLayer::onUpdate(float timestep)
 		m_renderer.submit(label.getMaterial());
 	}
 
+	m_renderer.submit(m_terrain->getMaterial());
 	m_renderer.submit(m_animation.getMaterial());
 
 	m_renderer.endScene();

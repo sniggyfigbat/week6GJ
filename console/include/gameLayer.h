@@ -9,6 +9,7 @@
 #include "label.h"
 #include "camera.h"
 #include "drawable.h"
+#include "terrain.h"
 
 class GameLayer : public Layer
 {
@@ -18,6 +19,8 @@ private:
 	Camera m_camera;
 	std::vector<Label> m_labels;
 	int m_lastKeypress;
+
+	Terrain * m_terrain;
 
 	Drawable m_animation;
 public:
