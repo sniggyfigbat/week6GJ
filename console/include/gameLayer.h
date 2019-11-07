@@ -11,6 +11,7 @@
 #include "drawable.h"
 #include "collidable.h"
 #include "terrain.h"
+#include "player.h"
 
 class GameLayer : public Layer
 {
