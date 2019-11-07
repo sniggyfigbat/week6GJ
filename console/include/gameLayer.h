@@ -10,11 +10,12 @@
 #include "camera.h"
 #include "drawable.h"
 #include "terrain.h"
+#include "collidable.h"
 
 class GameLayer : public Layer
 {
 private:
-	static b2World* m_world;
+	b2World* m_world;
 	ConsoleRenderer m_renderer;
 	Camera m_camera;
 	std::vector<Label> m_labels;
@@ -23,10 +24,11 @@ private:
 	Terrain * m_terrain;
 
 	Drawable m_animation;
+	Collidable m_staticBox, m_dynamicBox;
 public:
 	GameLayer();
 	void onUpdate(float timestep) override;
 	bool onKeyPress(unsigned int keyCode) override;
-	static b2World* world() { return m_world; }
+
 
 };

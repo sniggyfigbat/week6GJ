@@ -41,6 +41,7 @@ GameLayer::GameLayer()
 	m_staticBox.createStatic(m_world, glm::vec2(5.f, 7.f), GameObject::invView(24, 2), 24 * 2, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	m_dynamicBox.createDynamic(m_world, glm::vec2(5.f, 1.f), GameObject::invView(2, 2), 2 * 2, "0000");
 
+	m_terrain = new Terrain();
 	}
 
 void GameLayer::onUpdate(float timestep)
@@ -50,9 +51,11 @@ void GameLayer::onUpdate(float timestep)
 
 	m_dynamicBox.onUpdate(timestep);
 	m_animation.onUpdate(timestep);
+	m_terrain->onUpdate(timestep);
 	// Render everything
 	m_renderer.beginScene(m_camera);
 
+	m_renderer.submit(m_terrain->getMaterial());
 	m_renderer.submit(m_staticBox.getMaterial());
 	m_renderer.submit(m_dynamicBox.getMaterial());
 
