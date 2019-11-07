@@ -13,7 +13,7 @@
 class GameLayer : public Layer
 {
 private:
-	b2World* world;
+	static b2World* m_world;
 	ConsoleRenderer m_renderer;
 	Camera m_camera;
 	std::vector<Label> m_labels;
@@ -24,4 +24,6 @@ public:
 	GameLayer();
 	void onUpdate(float timestep) override;
 	bool onKeyPress(unsigned int keyCode) override;
+	static b2World* world() { return m_world; }
+
 };
