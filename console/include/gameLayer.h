@@ -10,6 +10,7 @@
 #include "camera.h"
 #include "drawable.h"
 #include "collidable.h"
+#include <string>
 
 class GameLayer : public Layer
 {
@@ -20,6 +21,9 @@ private:
 	int m_lastKeypress;
 
 	Drawable m_animation;
+	Drawable m_SmallBomb;
+	Drawable m_LargeBomb;
+
 
 	Collidable m_staticBox;
 	Collidable m_dynamicBox;
