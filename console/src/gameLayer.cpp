@@ -1,5 +1,5 @@
 ﻿#include "gameLayer.h"
-
+#include <map>
 
 GameLayer::GameLayer()
 {
@@ -22,18 +22,21 @@ GameLayer::GameLayer()
 	m_SmallBomb = Drawable(glm::vec2(2.f, 3.f), GameObject::invView(24, 12), 288, "                                                                                 *   *                 *  * *  *            *    **#**    *           *   * *   *            *   *   *   *              *     *                                                                                 ");
 	m_LargeBomb = Drawable(glm::vec2(6.f, 0.5f), GameObject::invView(48, 24), 1152, "");
 
-	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
-	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
-	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
-	m_animation.addFrame("        ''  o_()_o  /\\   d  b ");
-	m_animation.addFrame("        ''  o_()_o  /L   d  b ");
-	m_animation.addFrame("        ''  o_()_o  /L   d  b ");
-	m_animation.addFrame("        ''  o_()_o  /L   d  b ");
-	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
-	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
-	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
-	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
-	m_animation.addFrame("      o ''   \\()_o  /l   d b  ");
+	std::map<unsigned int, char> specialChars;
+	specialChars[2] = char(201);
+	specialChars[3] = char(187);
+	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
 
 	// Small Bomb animation //
 	m_SmallBomb.addFrame("                                                                                 *   *                 *  * *  *            *    **#**    *           *   * *   *            *   *   *   *              *     *                                                                                 ");
@@ -62,6 +65,10 @@ GameLayer::GameLayer()
 	m_LargeBomb.addFrame("  **           **         **            **          ****   ****             ****    ****              *******                 *******                   *****                 *****                      *****               *****                         ****             ****                              ***         ***                                    **  *  **                                    ***  *****  ***                                    ***(*)***                                      *  *   *  *                                     * ( #*# ) *                                  ( * ( ( # ) ) * )                                 *(   *#*   )*                                     * *#*#* *                                        *******                                        ***   ***                                      ****   ****                                 *******     *******                          *********       *********                      ********           ********                   **********           **********                **        **         **        **             **           **       **          **         ");
 	//m_LargeBomb.addFrame("");
 
+	m_staticBox.createStatic(m_world, glm::vec2(5.f, 7.f), GameObject::invView(24, 2), 24 * 2, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+	m_dynamicBox.createDynamic(m_world, glm::vec2(5.f, 1.f), GameObject::invView(2, 2), 2 * 2, "0000");
+
+	m_terrain = new Terrain();
 }
 
 
@@ -70,12 +77,19 @@ GameLayer::GameLayer()
 void GameLayer::onUpdate(float timestep)
 {
 	//Update everything
+	m_world->Step(timestep, 7, 5);
+
+	m_dynamicBox.onUpdate(timestep);
 
 	m_animation.onUpdate(timestep);
 	//m_SmallBomb.onUpdate(timestep);
 	m_LargeBomb.onUpdate(timestep);
 	// Render everything
 	m_renderer.beginScene(m_camera);
+
+	m_renderer.submit(m_terrain->getMaterial());
+	m_renderer.submit(m_staticBox.getMaterial());
+	m_renderer.submit(m_dynamicBox.getMaterial());
 
 	for (auto label : m_labels)
 	{

@@ -10,11 +10,12 @@
 #include "camera.h"
 #include "drawable.h"
 #include "collidable.h"
-#include <string>
+#include "terrain.h"
 
 class GameLayer : public Layer
 {
 private:
+	b2World* m_world;
 	ConsoleRenderer m_renderer;
 	Camera m_camera;
 	std::vector<Label> m_labels;
