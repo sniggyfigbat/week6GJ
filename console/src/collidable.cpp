@@ -2,6 +2,9 @@
 
 void Collidable::createDynamic(b2World* w, glm::vec2 position, glm::vec2 size, int count, char * texture)
 {
+	m_currentFrame = 0;
+	m_numFrames = 0;
+
 	m_animatedMat.setPosition(view(position));
 	m_animatedMat.setSize(view(size));
 	m_animatedMat.setCount(count);
@@ -20,7 +23,7 @@ void Collidable::createDynamic(b2World* w, glm::vec2 position, glm::vec2 size, i
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &boxShape;
 	boxFixtureDef.density = 1;
-	boxFixtureDef.restitution = 0.6f;
+	boxFixtureDef.restitution = 0.f;
 	m_body->CreateFixture(&boxFixtureDef);
 }
 
@@ -28,6 +31,16 @@ void Collidable::onUpdate(float timestep)
 {
 	auto pos = m_body->GetPosition();
 	m_animatedMat.setPosition(glm::ivec2(GameObject::view(pos.x, pos.y)));
+	
+	if (m_numFrames > 0)
+	{
+		m_animatedMat.setTexture(m_Textures[m_currentFrame]);
+		m_currentFrame++;
+		if (m_currentFrame >= m_numFrames)
+		{
+			m_currentFrame = 0;
+		}
+	}
 }
 
 void Collidable::createStatic(b2World* w, glm::vec2 position, glm::vec2 size, int count, char * texture)

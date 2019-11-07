@@ -11,7 +11,7 @@ protected:
 public:
 	void createStatic(b2World* w,glm::vec2 position, glm::vec2 size, int count, char * texture);
 	void createDynamic(b2World* w, glm::vec2 position, glm::vec2 size, int count, char * texture);
-	void onKeyPress(int keyPress) {};
+	virtual void onKeyPress(int keyPress) {};
 	void onUpdate(float timestep);
 	void onDelete() {};
 };

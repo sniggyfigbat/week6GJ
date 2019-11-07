@@ -1,5 +1,5 @@
 ﻿#include "gameLayer.h"
-
+#include <map>
 
 GameLayer::GameLayer()
 {
@@ -14,35 +14,78 @@ GameLayer::GameLayer()
 		'X','X','X','X','X',
 		'X','X',char(206),'X','X',
 		'X','X','X','X','X' };
-		
+	
 
 
 	m_labels[0] = Label(glm::vec2(10.f, 5.f), GameObject::invView(5, 3), 15, ch);
 	m_labels[1] = Label(glm::vec2(3.3f, 1.65f),  GameObject::invView(3,3), 15, "___===---");
+	
 
-	m_animation = Drawable(glm::vec2(10.f, 5.f), GameObject::invView(6,5), 30, "        XX  o_()_o  /\\   d  b ");
+	m_animation = Drawable(glm::vec2(10.f, 5.f), GameObject::invView(6,5), 30, "        ''  o_()_o  /\\   d  b ");
+	m_SmallBomb = Drawable(glm::vec2(2.f, 3.f), GameObject::invView(24, 12), 288, "                                                                                 *   *                 *  * *  *            *    **#**    *           *   * *   *            *   *   *   *              *     *                                                                                 ");
+	m_LargeBomb = Drawable(glm::vec2(6.f, 0.5f), GameObject::invView(48, 24), 1152, "");
+	m_sBombUI = Drawable(glm::vec2(1.f, 0.5f), GameObject::invView(7, 2), 14, "   ,     (*)  ");
+	m_lBombUI = Drawable(glm::vec2(2.f, 0.5f), GameObject::invView(7, 2), 14, "  -,    ( X ) ");
+	//m_rocketUI = Drawable(glm::vec2(6.f, 0.5f), GameObject::invView(48, 24), 1152, "");
+
+	m_player.createDynamic(m_world, glm::vec2(6.f, 1.f), GameObject::invView(6, 5), 6 * 5, "        ''  o_()_o  /\\   d  b ");
+
 
 	std::map<unsigned int, char> specialChars;
 	specialChars[2] = char(201);
 	specialChars[3] = char(187);
-	m_animation.addFrame(" _XX_   ''  o_()_o  /\\   d  b ",specialChars);
-	m_animation.addFrame(" _XX_   ''  o_()_o  /\\   d  b ", specialChars);
-	m_animation.addFrame(" _XX_   ''  o_()_o  /\\   d  b ", specialChars);
-	m_animation.addFrame(" _XX_   ''  o_()_o  /\\   d  b ", specialChars);
-	m_animation.addFrame(" _XX_   ''  o_()_o  /L   d  b ", specialChars);
-	m_animation.addFrame(" _XX_   ''  o_()_o  /L   d  b ", specialChars);
-	m_animation.addFrame(" _XX_   ''  o_()_o  /L   d  b ", specialChars);
-	m_animation.addFrame(" _XX_ o ''   \\()_o  /l   d b  ", specialChars);
-	m_animation.addFrame(" _XX_ o ''   \\()_o  /l   d b  ", specialChars);
-	m_animation.addFrame(" _XX_ o ''   \\()_o  /l   d b  ", specialChars);
-	m_animation.addFrame(" _XX_ o ''   \\()_o  /l   d b  ", specialChars);
-	m_animation.addFrame(" _XX_ o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_animation.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_animation.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+
+	m_player.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /\\   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_player.addFrame("  XX    ''  o_()_o  /L   d  b ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+	m_player.addFrame("  XX  o ''   \\()_o  /l   d b  ", specialChars);
+
+
+	// Small Bomb animation //
+	m_SmallBomb.addFrame("                                                                                 *   *                 *  * *  *            *    **#**    *           *   * *   *            *   *   *   *              *     *                                                                                 ",3);
+	m_SmallBomb.addFrame("                            *   *      *   *      *   *          *   *     *   (        )    *      *   *(   )*   *     *      ( (*#*) )       **  *(    (###)    )*  *    *  (  (*#*)  )  *     *   *  *(   )*  *   *     *    *     *    *        * *          * *         *   *   *   *              ",3);
+	m_SmallBomb.addFrame("*   *      *      *    *       *  * *  *             *  *     *  *         *    (  *  )    *        *   *(   )*   *     *      (  (*)  )       *  *  *(  ( # )  )*  *       *  (  (*)  )  *      *   *  *(   )*  *   *     *    (  *  )    *         *  *     *  *             *  * *  *        ",3);
+	m_SmallBomb.addFrame("                                                         *   *                  *#* *#*                  *#*#*                    *#*                    *#*#*                  *#* *#*                *#*   *#*                *     *                                                         ",3);
+	m_SmallBomb.addFrame("                                                                                 #   #                    # #                      #                      # #                    #   #                                                                                                          ",3);
+	m_SmallBomb.addFrame("                                                                                 *   *                    * *                      *                      * *                    *   *                                                                                                          ",3);
+	m_SmallBomb.addFrame("                                                                                                                                   *                                                                                                                                                            ",3);
+	
+	// Large Bomb animation //
+	m_LargeBomb.addFrame("  **           **         **            **          ****   ****             ****    ****              *******                 *******                   *****                 *****                      *****               *****                         ****             ****                              ***         ***                                    **  *  **                                    ***  *****  ***                                    ***(*)***                                      *  *   *  *                                     * ( #*# ) *                                  ( * ( ( # ) ) * )                                 *(   *#*   )*                                     * *#*#* *                                        *******                                        ***   ***                                      ****   ****                                 *******     *******                          *********       *********                      ********           ********                   **********           **********                **        **         **        **             **           **       **          **         ",3);
+	m_LargeBomb.addFrame(" *#*        **               **        *#*          *##*   *##*             *##*   *##*              *#######*               *#######*                *######*               *######*                  *######*             *######*                    *#####*             *#####*                      *#####*           *#####*                        *#####*         *#####*                           *###*         *###*                              **##**     **##**                                 *##**   **##*                                    *#* #*# *#*                                     (*( *#* )*)                                       (**#**)                                        * *#*#* *                                       *#######*                                      *###* *###                                     *####*  *####*                               *#######*  *########*                         *#######*      *########*                      *########*      *#########*                  *##########*       *###########*               *##########*         *###########*            **###########*         *############**       ",3);
+	m_LargeBomb.addFrame(" ####      ####             ####      ####         ###########               ###########             ########                 #########               #######                 ########                 #######               ########                   #######             #######                      #######           #######                        #######         #######                          #######       #######                             ######     ######                                 #####   #####                                    ###########                                       #######                                         #######                                        #########                                      ###########                                    ###### ######                                 #######   #######                             ########     ########                         #########       #########                      ##########       ##########                   ###########         ###########                ############         ############             ###############       ###############        ",3);
+	m_LargeBomb.addFrame(" ****      ****             ****      ****         ***********               ***********             ********                 *********               *******                 ********                 *******               ********                   *******             *******                      *******           *******                        *******         *******                          *******       *******                             ******     ******                                 *****   *****                                    ***********                                       *******                                         *******                                        *********                                      ***********                                    ****** ******                                 *******   *******                             ********     ********                         *********       *********                      **********       **********                   ***********         ***********                ************         ************             ***************       ***************        ",3);
+	m_LargeBomb.addFrame("                                                     *******                   *******                 ****                     ****                    ***                     ***                      ***                   ***                        ***                 ***                          ***               ***                            ***             ***                              ***           ***                                 **         **                                     *       *                                         *****                                            ***                                             ***                                            *****                                        ****   ****                                    ***       ***                                 *****       *****                             *****           *****                         *******           *******                      *******             *******                   ********               ********                ********                 ********             ***********               ***********        ",3);
+	m_LargeBomb.addFrame("                                                     **   **                   **   **                 *  *                     *  *                    * *                     * *                      * *                   * *                        * *                 * *                          * *               * *                            * *             * *                              * *           * *                                 *           *                                     *       *                                         *   *                                            * *                                             * *                                            *   *                                        *  *   *  *                                    * *       * *                                 *   *       *   *                             *    *         *    *                         *     *           *     *                      *     *             *      *                  *       *              *       *               *        *              *        *            *          *              *         *        ",3);
 
 	m_staticBox.createStatic(m_world, glm::vec2(5.f, 7.f), GameObject::invView(24, 2), 24 * 2, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	m_dynamicBox.createDynamic(m_world, glm::vec2(5.f, 1.f), GameObject::invView(2, 2), 2 * 2, "0000");
 
-	m_terrain = new Terrain(m_world);
-	}
+	m_terrain = new Terrain();
+}
+
+
+
 
 void GameLayer::onUpdate(float timestep)
 {
@@ -50,8 +93,13 @@ void GameLayer::onUpdate(float timestep)
 	m_world->Step(timestep, 7, 5);
 
 	m_dynamicBox.onUpdate(timestep);
+
 	m_animation.onUpdate(timestep);
-	m_terrain->onUpdate(timestep);
+	m_SmallBomb.onUpdate(timestep);
+	m_LargeBomb.onUpdate(timestep);
+
+	m_player.onUpdate(timestep);
+
 	// Render everything
 	m_renderer.beginScene(m_camera);
 
@@ -65,6 +113,13 @@ void GameLayer::onUpdate(float timestep)
 	}
 
 	m_renderer.submit(m_animation.getMaterial());
+	m_renderer.submit(m_SmallBomb.getMaterial());
+	m_renderer.submit(m_LargeBomb.getMaterial());
+	m_renderer.submit(m_sBombUI.getMaterial());
+	m_renderer.submit(m_lBombUI.getMaterial());
+	//m_renderer.submit(m_rocketUI.getMaterial());
+
+	m_renderer.submit(m_player.getMaterial());
 
 	m_renderer.endScene();
 	m_renderer.flush();
@@ -72,5 +127,6 @@ void GameLayer::onUpdate(float timestep)
 
 bool GameLayer::onKeyPress(unsigned int keyCode)
 {
+	m_player.onKeyPress(keyCode);
 	return false;
 }
