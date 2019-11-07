@@ -1,6 +1,5 @@
 ﻿#include "gameLayer.h"
 
-b2World* GameLayer::m_world = new b2World(b2Vec2(0.f, -9.81f));
 
 GameLayer::GameLayer()
 {
